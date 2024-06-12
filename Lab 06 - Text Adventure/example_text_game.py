@@ -37,7 +37,7 @@ def main():
         'are doors to the south and the east.'
     ]
     norths = [5, None, 3, None, None, None]
-    easts = [1, 2, None, None, None, 4]
+    easts = [1, 2, None, None, 3, 4]
     souths = [None, None, None, 2, None, 0]
     wests = [None, 0, 1, 4, 5, None]
     ups = [None, None, None, None, None, None]
