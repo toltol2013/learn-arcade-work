@@ -1,14 +1,7 @@
 """
 Sprite Sample Program
 
-This shows you the following features:
-- the player sprite and coins are set up as objects of the Arcade sprite class
-- the coins and player sprites are managed using sprite lists
-- all the code setting things up (e.g. creating sprites, zeroing score) is abstracted away
-  into a Setup method of the window Class
-- moving the player sprite using the mouse
-- dealing with collisions between sprites using hit lists, and removing the coins (collectible item)
-  after collision
+This builds on coin_collector_moving1 by respawning the coins as they fall to the bottom or are caught by the player
 """
 
 import random
@@ -16,11 +9,35 @@ import arcade
 
 # --- Constants ---
 SPRITE_SCALING_PLAYER = 0.5
-SPRITE_SCALING_COIN = 0.25
-COIN_COUNT = 150
+SPRITE_SCALING_COIN = 0.2
+COIN_COUNT = 50
 
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
+
+
+class Coin(arcade.Sprite):
+    """
+    This class represents the coins on our screen. It is a child class of
+    the arcade library's "Sprite" class.
+    """
+
+    def reset_pos(self):
+
+        # Reset the coin to a random spot above the screen
+        self.center_y = random.randrange(SCREEN_HEIGHT + 20,
+                                         SCREEN_HEIGHT + 100)
+        self.center_x = random.randrange(SCREEN_WIDTH)
+
+    def update(self):
+
+        # Move the coin
+        self.center_y -= 1
+
+        # See if the coin has fallen off the bottom of the screen.
+        # If so, reset it.
+        if self.top < 0:
+            self.reset_pos()
 
 
 class MyGame(arcade.Window):
@@ -55,7 +72,7 @@ class MyGame(arcade.Window):
         self.score = 0
 
         # Set up the player
-        # Character image from builtins
+        # Character image from kenney.nl
         self.player_sprite = arcade.Sprite(":resources:images/animated_characters/male_person/malePerson_idle.png", SPRITE_SCALING_PLAYER)
         self.player_sprite.center_x = 50
         self.player_sprite.center_y = 50
@@ -65,8 +82,8 @@ class MyGame(arcade.Window):
         for i in range(COIN_COUNT):
 
             # Create the coin instance
-            # Coin image from builtins
-            coin = arcade.Sprite(":resources:images/items/coinGold.png", SPRITE_SCALING_COIN)
+            # Coin image from kenney.nl
+            coin = Coin(":resources:images/items/coinGold.png", SPRITE_SCALING_COIN)
 
             # Position the coin
             coin.center_x = random.randrange(SCREEN_WIDTH)
@@ -100,12 +117,12 @@ class MyGame(arcade.Window):
         self.coin_list.update()
 
         # Generate a list of all sprites that collided with the player.
-        coins_hit_list = arcade.check_for_collision_with_list(self.player_sprite,
-                                                              self.coin_list)
+        hit_list = arcade.check_for_collision_with_list(self.player_sprite,
+                                                        self.coin_list)
 
         # Loop through each colliding sprite, remove it, and add to the score.
-        for coin in coins_hit_list:
-            coin.remove_from_sprite_lists()
+        for coin in hit_list:
+            coin.reset_pos()
             self.score += 1
 
 
