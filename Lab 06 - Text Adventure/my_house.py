@@ -29,9 +29,9 @@ def main():
     ]
 
     norths = [5, None, 3, None, None, None, None, None, None]
-    easts = [1, 2, None, None, 3, 4, None, None, None]
+    easts = [1, 2, None, None, 3, 4, None, 7, 8]
     souths = [None, None, None, 2, None, 0, None, None, None]
-    wests = [None, 0, 1, 4, 5, None, None, None, None]
+    wests = [None, 0, 1, 4, 5, None, None, 6, 7]
     ups = [6, None, None, None, None, None, None, None, None]
     downs = [None, None, None, None, None, None, 0, None, None]
 
@@ -45,7 +45,7 @@ def main():
 
     while not done:
         print(room_list[current_room].description)
-        answer = input("What do you want to do? Enter n for north, e for east, s for south, w for west, u for up, d for down, q to quit:")
+        answer = input("What do you want to do? Enter n for north, e for east, s for south, w for west, u for up, d for down, q to quit: ")
 
         print()
         low_answer = answer.lower()
