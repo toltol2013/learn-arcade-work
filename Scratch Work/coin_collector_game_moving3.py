@@ -17,7 +17,7 @@ import arcade
 # --- Constants ---
 SPRITE_SCALING_PLAYER = 0.5
 SPRITE_SCALING_COIN = 0.3
-COIN_COUNT = 50
+COIN_COUNT = 100
 
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
@@ -93,7 +93,7 @@ class MyGame(arcade.Window):
 
         # Set up the player
         # Character image from builtins
-        self.player_sprite = arcade.Sprite(":resources:images/animated_characters/male_person/malePerson_idle.png", SPRITE_SCALING_PLAYER)
+        self.player_sprite = arcade.Sprite("character.png", SPRITE_SCALING_PLAYER)
         self.player_sprite.center_x = 50
         self.player_sprite.center_y = 50
         self.player_list.append(self.player_sprite)
@@ -103,14 +103,14 @@ class MyGame(arcade.Window):
 
             # Create the coin instance
             # Coin image from kenney.nl
-            coin = Coin(":resources:images/items/coinGold.png", SPRITE_SCALING_COIN)
+            coin = Coin("coin_01.png", SPRITE_SCALING_COIN)
 
             # Position the coin
             coin.center_x = random.randrange(SCREEN_WIDTH)
             coin.center_y = random.randrange(SCREEN_HEIGHT)
-            coin.change_x = random.randrange(-3, 4)
-            coin.change_y = random.randrange(-3, 4)
-            coin.spin_rate = random.randrange(-3, 4)
+            coin.change_x = random.randrange(-6,7)
+            coin.change_y = random.randrange(-6, 7)
+            coin.spin_rate = random.randrange(-6, 7)
 
             # Add the coin to the lists
             self.coin_list.append(coin)
@@ -145,7 +145,11 @@ class MyGame(arcade.Window):
 
         # Loop through each colliding sprite, remove it, and add to the score.
         for coin in hit_list:
-            coin.remove_from_sprite_lists()
+            coin.center_x = random.randrange(SCREEN_WIDTH)
+            coin.center_y = random.randrange(SCREEN_HEIGHT)
+            coin.change_x = random.randrange(-6, 7)
+            coin.change_y = random.randrange(-6, 7)
+            coin.spin_rate = random.randrange(-6, 7)
             self.score += 1
 
 

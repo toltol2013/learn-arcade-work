@@ -19,8 +19,8 @@ SPRITE_SCALING_COIN = 0.3
 SPRITE_SCALING_LASER = 0.8
 COIN_COUNT = 220
 
-SCREEN_WIDTH = 1200
-SCREEN_HEIGHT = 800
+SCREEN_WIDTH = 800
+SCREEN_HEIGHT = 600
 
 BULLET_SPEED = 5
 
@@ -63,7 +63,7 @@ class MyGame(arcade.Window):
 
         # Set up the player
         # Image from builtin resources
-        self.player_sprite = arcade.Sprite(":resources:images/animated_characters/male_person/malePerson_idle.png", SPRITE_SCALING_PLAYER)
+        self.player_sprite = arcade.Sprite("player_ship.png", SPRITE_SCALING_PLAYER)
         self.player_sprite.center_x = 50
         self.player_sprite.center_y = 70
         self.player_list.append(self.player_sprite)
